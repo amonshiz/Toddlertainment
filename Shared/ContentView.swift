@@ -12,8 +12,8 @@ struct ContentView: View {
 
   var body: some View {
     NavigationView {
-      Text("Hello, world!")
-        .padding()
+      MapView()
+        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
             Button {
@@ -22,6 +22,10 @@ struct ContentView: View {
               Label("", systemImage: "line.horizontal.3")
                 .labelStyle(IconOnlyLabelStyle())
             }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(.all, 10)
+            .background(Color(UIColor.white))
+            .cornerRadius(5.0)
           }
         }
     }
