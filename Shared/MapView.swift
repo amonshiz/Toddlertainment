@@ -8,11 +8,24 @@
 import SwiftUI
 import MapKit
 
-private struct MapViewImplementation<Context> {
-  let points: [PointOfInterest]
+typealias AnnotationTapHandler = (PointOfInterest) -> ()
 
-  init(_ points: [PointOfInterest] = []) {
+protocol RepresentableContext {
+  associatedtype Coordinator
+  var coordinator: Coordinator { get }
+}
+
+private struct MapViewImplementation<Context> where Context: RepresentableContext, Context.Coordinator == MapViewCoordinator {
+  private let points: [PointOfInterest]
+  private let annotationTapHandler: AnnotationTapHandler?
+
+  init(_ points: [PointOfInterest] = [], tapHandler: AnnotationTapHandler? = nil) {
     self.points = points
+    self.annotationTapHandler = tapHandler
+  }
+
+  func makeCoordinator() -> MapViewCoordinator {
+    return MapViewCoordinator(annotationTapHandler)
   }
 
   func makeView(context: Context) -> MKMapView {
@@ -21,6 +34,8 @@ private struct MapViewImplementation<Context> {
     view.setRegion(region, animated: false)
 
     view.addAnnotations(points.map(PointOfInterestAnnotation.init))
+
+    context.coordinator.mapView = view
 
     return view
   }
@@ -47,29 +62,37 @@ public class MapViewCoordinator: NSObject, MKMapViewDelegate {
     }
   }
 
+  private let annotationTapHandler: AnnotationTapHandler?
+
+  init(_ tapHandler: AnnotationTapHandler? = nil) {
+    self.annotationTapHandler = tapHandler
+  }
+
   public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
     guard let annotation = view.annotation as? PointOfInterestAnnotation else { return }
 
     dump(annotation)
+    annotationTapHandler?(annotation.pointOfInterest)
   }
 }
 
 #if os(iOS)
 
+extension UIViewRepresentableContext: RepresentableContext {}
+
 struct MapView: UIViewRepresentable {
   fileprivate let impl: MapViewImplementation<UIViewRepresentableContext<Self>>
 
-  init(_ points: [PointOfInterest] = []) {
-    impl = MapViewImplementation<UIViewRepresentableContext<Self>>(points)
+  init(_ points: [PointOfInterest] = [], tapHandler: AnnotationTapHandler? = nil) {
+    impl = MapViewImplementation<UIViewRepresentableContext<Self>>(points, tapHandler: tapHandler)
   }
 
   func makeCoordinator() -> MapViewCoordinator {
-    return MapViewCoordinator()
+    impl.makeCoordinator()
   }
 
   func makeUIView(context: Context) -> MKMapView {
     let view = impl.makeView(context: context)
-    context.coordinator.mapView = view
 
     return view
   }
@@ -81,11 +104,17 @@ struct MapView: UIViewRepresentable {
 
 #elseif os(macOS)
 
+extension NSViewRepresentableContext: RepresentableContext {}
+
 struct MapView: NSViewRepresentable {
   fileprivate let impl: MapViewImplementation<NSViewRepresentableContext<Self>>
 
-  init(_ points: [PointOfInterest] = []) {
-    impl = MapViewImplementation<NSViewRepresentableContext<Self>>(points)
+  init(_ points: [PointOfInterest] = [], tapHandler: AnnotationTapHandler? = nil) {
+    impl = MapViewImplementation<NSViewRepresentableContext<Self>>(points, tapHandler: tapHandler)
+  }
+
+  func makeCoordinator() -> MapViewCoordinator {
+    impl.makeCoordinator()
   }
 
   func makeNSView(context: Context) -> MKMapView {
