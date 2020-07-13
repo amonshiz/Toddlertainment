@@ -12,7 +12,7 @@ struct ContentView: View {
   @State var isPresented = false
 
   let pointsOfInterest = [
-    PointOfInterest(name: "Church Square Park", coordinate: CLLocationCoordinate2D(latitude: 40.742200, longitude: -74.032387), description: nil),
+    PointOfInterest(name: "Church Square Park", coordinate: CLLocationCoordinate2D(latitude: 40.742200, longitude: -74.032387), description: "A park across the street from a church"),
     PointOfInterest(name: "Steven's Park", coordinate: CLLocationCoordinate2D(latitude: 40.741468, longitude: -74.028031), description: nil),
   ]
 
@@ -38,7 +38,7 @@ struct ContentView: View {
       NavigationView {
         List {
           ForEach(pointsOfInterest, id: \.name) {
-            Text("\($0.name)")
+            NavigationLink($0.name, destination: PointOfInterestDetailView(pointOfInterest: $0))
           }
         }
         .navigationTitle("Locations")
