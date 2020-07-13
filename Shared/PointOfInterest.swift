@@ -13,3 +13,7 @@ struct PointOfInterest {
   let coordinate: CLLocationCoordinate2D
   let description: String?
 }
+
+extension PointOfInterest: Identifiable {
+  var id: String { name + "\(coordinate.latitude)\(coordinate.longitude)"}
+}
