@@ -40,6 +40,20 @@ fileprivate class PointOfInterestAnnotation: MKPointAnnotation {
   }
 }
 
+public class MapViewCoordinator: NSObject, MKMapViewDelegate {
+  weak var mapView: MKMapView? {
+    didSet {
+      mapView?.delegate = self
+    }
+  }
+
+  public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    guard let annotation = view.annotation as? PointOfInterestAnnotation else { return }
+
+    dump(annotation)
+  }
+}
+
 #if os(iOS)
 
 struct MapView: UIViewRepresentable {
@@ -49,8 +63,15 @@ struct MapView: UIViewRepresentable {
     impl = MapViewImplementation<UIViewRepresentableContext<Self>>(points)
   }
 
+  func makeCoordinator() -> MapViewCoordinator {
+    return MapViewCoordinator()
+  }
+
   func makeUIView(context: Context) -> MKMapView {
-    impl.makeView(context: context)
+    let view = impl.makeView(context: context)
+    context.coordinator.mapView = view
+
+    return view
   }
 
   func updateUIView(_ uiView: MKMapView, context: Context) {
