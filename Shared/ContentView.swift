@@ -35,8 +35,8 @@ struct ContentView: View {
           }
         }
     }
-    .alert(isPresented: $isPresented) {
-      Alert(title: Text("Hello world!"))
+    .sheet(isPresented: $isPresented) {
+      Text("Hello world!")
     }
   }
 }
