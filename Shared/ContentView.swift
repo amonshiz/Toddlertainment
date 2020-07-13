@@ -20,8 +20,8 @@ struct ContentView: View {
     NavigationView {
       MapView(pointsOfInterest)
         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-        .toolbar {
-          ToolbarItem(placement: .navigationBarLeading) {
+        .navigationBarItems(
+          leading:
             Button {
               isPresented.toggle()
             } label: {
@@ -32,11 +32,17 @@ struct ContentView: View {
             .padding(.all, 10)
             .background(Color(UIColor.white))
             .cornerRadius(5.0)
-          }
-        }
+        )
     }
     .sheet(isPresented: $isPresented) {
-      Text("Hello world!")
+      NavigationView {
+        List {
+          ForEach(pointsOfInterest, id: \.name) {
+            Text("\($0.name)")
+          }
+        }
+        .navigationTitle("Locations")
+      }
     }
   }
 }
