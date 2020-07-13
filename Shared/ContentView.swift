@@ -8,8 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+  @State var isPresented = false
+
   var body: some View {
-    Text("Hello, world!").padding()
+    NavigationView {
+      Text("Hello, world!")
+        .padding()
+        .toolbar {
+          ToolbarItem(placement: .navigationBarLeading) {
+            Button {
+              isPresented.toggle()
+            } label: {
+              Label("", systemImage: "line.horizontal.3")
+                .labelStyle(IconOnlyLabelStyle())
+            }
+          }
+        }
+    }
+    .alert(isPresented: $isPresented) {
+      Alert(title: Text("Hello world!"))
+    }
   }
 }
 
