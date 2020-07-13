@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import CoreGraphics
+import CoreLocation
 
 struct PointOfInterest {
   let name: String
-  let coordinate: CGPoint
+  let coordinate: CLLocationCoordinate2D
   let description: String?
 }

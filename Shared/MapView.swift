@@ -22,7 +22,7 @@ private struct MapViewImplementation<Context> {
 
     view.addAnnotations(points.map({ poi in
       let annotation = MKPointAnnotation()
-      annotation.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(poi.coordinate.x), longitude: CLLocationDegrees(poi.coordinate.y))
+      annotation.coordinate = poi.coordinate
       return annotation
     }))
 

@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
   @State var isPresented = false
 
   let pointsOfInterest = [
-    PointOfInterest(name: "Church Square Park", coordinate: CGPoint(x: 40.742200, y: -74.032387), description: nil),
-    PointOfInterest(name: "Steven's Park", coordinate: CGPoint(x: 40.741468, y: -74.028031), description: nil),
+    PointOfInterest(name: "Church Square Park", coordinate: CLLocationCoordinate2D(latitude: 40.742200, longitude: -74.032387), description: nil),
+    PointOfInterest(name: "Steven's Park", coordinate: CLLocationCoordinate2D(latitude: 40.741468, longitude: -74.028031), description: nil),
   ]
 
   var body: some View {
