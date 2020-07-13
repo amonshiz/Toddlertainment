@@ -10,9 +10,14 @@ import SwiftUI
 struct ContentView: View {
   @State var isPresented = false
 
+  let pointsOfInterest = [
+    PointOfInterest(name: "Church Square Park", coordinate: CGPoint(x: 40.742200, y: -74.032387), description: nil),
+    PointOfInterest(name: "Steven's Park", coordinate: CGPoint(x: 40.741468, y: -74.028031), description: nil),
+  ]
+
   var body: some View {
     NavigationView {
-      MapView()
+      MapView(pointsOfInterest)
         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
