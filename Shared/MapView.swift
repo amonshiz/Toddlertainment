@@ -20,16 +20,23 @@ private struct MapViewImplementation<Context> {
     let view = MKMapView(frame: .zero)
     view.setRegion(region, animated: false)
 
-    view.addAnnotations(points.map({ poi in
-      let annotation = MKPointAnnotation()
-      annotation.coordinate = poi.coordinate
-      return annotation
-    }))
+    view.addAnnotations(points.map(PointOfInterestAnnotation.init))
 
     return view
   }
 
   func updateView(_ uiView: MKMapView, context: Context) {
+  }
+}
+
+fileprivate class PointOfInterestAnnotation: MKPointAnnotation {
+  let pointOfInterest: PointOfInterest
+
+  init(_ pointOfInterest: PointOfInterest) {
+    self.pointOfInterest = pointOfInterest
+
+    super.init()
+    coordinate = pointOfInterest.coordinate
   }
 }
 
