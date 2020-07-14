@@ -16,6 +16,8 @@ struct ContentView: View {
 
   @ObservedObject private var state = InternalState()
 
+  @State var coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 40.742218, longitude: -74.032312), latitudinalMeters: 3500, longitudinalMeters: 500)
+
   let pointsOfInterest = [
     PointOfInterest(name: "Church Square Park", coordinate: CLLocationCoordinate2D(latitude: 40.742200, longitude: -74.032387), description: "A park across the street from a church"),
     PointOfInterest(name: "Steven's Park", coordinate: CLLocationCoordinate2D(latitude: 40.741468, longitude: -74.028031), description: nil),
@@ -23,9 +25,19 @@ struct ContentView: View {
 
   var body: some View {
     NavigationView {
-      MapView(pointsOfInterest) { poi in
-        state.selectedPointOfInterest = poi
-        state.isPresented.toggle()
+      Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: nil, annotationItems: pointsOfInterest) { poi in
+        MapAnnotation(coordinate: poi.coordinate) {
+          Image(systemName: "bus")
+            .padding(5)
+            .onTapGesture {
+              state.selectedPointOfInterest = poi
+              state.isPresented.toggle()
+            }
+            .background(
+              RoundedRectangle(cornerRadius: 5)
+                .fill()
+                .foregroundColor(.red))
+        }
       }
       .edgesIgnoringSafeArea(.all)
       .navigationBarItems(
