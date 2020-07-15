@@ -27,12 +27,7 @@ struct ContentView: View {
           PointOfInterestDetailView(pointOfInterest: poi)
             .navigationTitle(poi.name)
         } else {
-          List {
-            ForEach(pointsOfInterest, id: \.name) {
-              NavigationLink($0.name, destination: PointOfInterestDetailView(pointOfInterest: $0))
-            }
-          }
-          .navigationTitle("Locations")
+          PointsOfInterestListView(pointsOfInterest: pointsOfInterest)
         }
       }
     }
