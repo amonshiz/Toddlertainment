@@ -33,7 +33,7 @@ struct PointOfInterestDetails {
     }
   }
 
-  struct Detail {
+  struct Detail: Hashable {
     let information: String
   }
 

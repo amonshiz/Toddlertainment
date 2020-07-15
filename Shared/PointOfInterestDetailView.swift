@@ -30,8 +30,7 @@ struct PointOfInterestDetailView: View {
         .frame(width: nil, height: geo.size.height * 0.25, alignment: .top)
 
         KindRow(kind: details.kind)
-
-        Divider()
+        DetailsSection(details: details.details)
 
         Spacer()
       }
@@ -49,13 +48,36 @@ private struct KindRow: View {
       Text(kind.textDescription)
         .padding()
         .background(
-          Capsule(style: .continuous)
+          RoundedRectangle(cornerRadius: 12)
             .fill()
             .foregroundColor(Color.white)
             .shadow(radius: 2)
         )
       Spacer()
     }
+    .padding()
+  }
+}
+
+private struct DetailsSection: View {
+  let details: [PointOfInterestDetails.Detail]
+
+  var body: some View {
+    VStack {
+      ForEach(details, id: \.self) { (d: PointOfInterestDetails.Detail) in
+        HStack {
+          Text(d.information)
+          Spacer()
+        }
+      }
+    }
+    .padding()
+    .background(
+      RoundedRectangle(cornerRadius: 12)
+        .fill()
+        .foregroundColor(Color.white)
+        .shadow(radius: 2)
+    )
     .padding()
   }
 }
