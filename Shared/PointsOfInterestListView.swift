@@ -13,7 +13,7 @@ struct PointsOfInterestListView: View {
   var body: some View {
     List {
       ForEach(pointsOfInterest) {
-        NavigationLink($0.name, destination: PointOfInterestDetailView(pointOfInterest: $0))
+        NavigationLink($0.name, destination: PointOfInterestDetailView($0.id))
       }
     }
     .navigationTitle("Locations")

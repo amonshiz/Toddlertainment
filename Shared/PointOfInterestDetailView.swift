@@ -9,35 +9,38 @@ import SwiftUI
 import MapKit
 
 struct PointOfInterestDetailView: View {
-  let pointOfInterest: PointOfInterest
+  let details: PointOfInterestDetails
 
   @State var coordinateRegion: MKCoordinateRegion
+  let mapping = GlobalPointsOfInterestDetails
 
-  init(pointOfInterest: PointOfInterest) {
-    self.pointOfInterest = pointOfInterest
-    _coordinateRegion = State<MKCoordinateRegion>(initialValue:  MKCoordinateRegion(center: pointOfInterest.coordinate, latitudinalMeters: 150, longitudinalMeters: 150))
+  init(_ pointOfInterestID: UUID) {
+    guard let details = mapping[pointOfInterestID] else { fatalError() }
+
+    self.details = details
+    _coordinateRegion = State<MKCoordinateRegion>(initialValue:  MKCoordinateRegion(center: details.baseProperties.coordinate, latitudinalMeters: 150, longitudinalMeters: 150))
   }
 
   var body: some View {
     GeometryReader { geo in
       VStack {
-        Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, annotationItems: [pointOfInterest]) { poi in
+        Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, annotationItems: [details.baseProperties]) { poi in
           MapPin(coordinate: poi.coordinate)
         }
           .frame(width: nil, height: geo.size.height * 0.25, alignment: .top)
-        if let detail = pointOfInterest.description {
+        if let detail = details.baseProperties.description {
           Text(detail)
         }
         Spacer()
       }
     }
     .edgesIgnoringSafeArea([.top])
-    .navigationTitle(pointOfInterest.name)
+    .navigationTitle(details.baseProperties.name)
   }
 }
 
 struct PointOfInterestDetailView_Previews: PreviewProvider {
   static var previews: some View {
-    PointOfInterestDetailView(pointOfInterest:     PointOfInterest(name: "Church Square Park", coordinate: CLLocationCoordinate2D(latitude: 40.742200, longitude: -74.032387), description: "A park across the street from a church"))
+    PointOfInterestDetailView(GlobalPointsOfInterest[0].uuid)
   }
 }

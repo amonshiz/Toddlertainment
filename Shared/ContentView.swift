@@ -24,7 +24,7 @@ struct ContentView: View {
     }) {
       NavigationView {
         if let poi = state.selectedPointOfInterest {
-          PointOfInterestDetailView(pointOfInterest: poi)
+          PointOfInterestDetailView(poi.id)
             .navigationTitle(poi.name)
         } else {
           PointsOfInterestListView(pointsOfInterest: pointsOfInterest)
