@@ -27,15 +27,36 @@ struct PointOfInterestDetailView: View {
         Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, annotationItems: [details.baseProperties]) { poi in
           MapPin(coordinate: poi.coordinate)
         }
-          .frame(width: nil, height: geo.size.height * 0.25, alignment: .top)
-        if let detail = details.baseProperties.description {
-          Text(detail)
-        }
+        .frame(width: nil, height: geo.size.height * 0.25, alignment: .top)
+
+        KindRow(kind: details.kind)
+
+        Divider()
+
         Spacer()
       }
     }
     .edgesIgnoringSafeArea([.top])
     .navigationTitle(details.baseProperties.name)
+  }
+}
+
+private struct KindRow: View {
+  let kind: PointOfInterestDetails.Kind
+
+  var body: some View {
+    HStack {
+      Text(kind.textDescription)
+        .padding()
+        .background(
+          Capsule(style: .continuous)
+            .fill()
+            .foregroundColor(Color.white)
+            .shadow(radius: 2)
+        )
+      Spacer()
+    }
+    .padding()
   }
 }
 

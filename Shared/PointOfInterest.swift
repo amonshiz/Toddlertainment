@@ -24,6 +24,13 @@ struct PointOfInterestDetails {
   enum Kind {
     case construction
     case trains
+
+    var textDescription: String {
+      switch(self) {
+        case .construction: return "Construction"
+        case .trains: return "Trains"
+      }
+    }
   }
 
   struct Detail {
