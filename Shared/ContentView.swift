@@ -18,10 +18,7 @@ struct ContentView: View {
 
   @State var coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 40.742218, longitude: -74.032312), latitudinalMeters: 3500, longitudinalMeters: 500)
 
-  let pointsOfInterest = [
-    PointOfInterest(name: "Church Square Park", coordinate: CLLocationCoordinate2D(latitude: 40.742200, longitude: -74.032387), description: "A park across the street from a church"),
-    PointOfInterest(name: "Steven's Park", coordinate: CLLocationCoordinate2D(latitude: 40.741468, longitude: -74.028031), description: nil),
-  ]
+  let pointsOfInterest: [PointOfInterest]
 
   var body: some View {
     NavigationView {
@@ -76,6 +73,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView()
+    ContentView(pointsOfInterest: GlobalPointsOfInterest)
   }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct ToddlertainmentApp: App {
   var body: some Scene {
     WindowGroup {
-      ContentView()
+      ContentView(pointsOfInterest: GlobalPointsOfInterest)
     }
   }
 }
