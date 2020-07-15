@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B21629E24BFA8F900ADECB5 /* RootMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B21629D24BFA8F900ADECB5 /* RootMapView.swift */; };
+		1B21629F24BFA8F900ADECB5 /* RootMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B21629D24BFA8F900ADECB5 /* RootMapView.swift */; };
 		1B2EDA7624BCD8F200FC1480 /* PointOfInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2EDA7524BCD8F200FC1480 /* PointOfInterest.swift */; };
 		1B2EDA7724BCD8F200FC1480 /* PointOfInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2EDA7524BCD8F200FC1480 /* PointOfInterest.swift */; };
 		1B56F77D24BCBBE900883B90 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B56F77C24BCBBE900883B90 /* Tests_iOS.swift */; };
@@ -39,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B21629D24BFA8F900ADECB5 /* RootMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootMapView.swift; sourceTree = "<group>"; };
 		1B2EDA7524BCD8F200FC1480 /* PointOfInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointOfInterest.swift; sourceTree = "<group>"; };
 		1B56F76124BCBBE900883B90 /* ToddlertainmentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToddlertainmentApp.swift; sourceTree = "<group>"; };
 		1B56F76224BCBBE900883B90 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -109,6 +112,7 @@
 				1B56F76324BCBBE900883B90 /* Assets.xcassets */,
 				1B2EDA7524BCD8F200FC1480 /* PointOfInterest.swift */,
 				1BEEF22624BD0B37003870B1 /* PointOfInterestDetailView.swift */,
+				1B21629D24BFA8F900ADECB5 /* RootMapView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -317,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B56F78C24BCBBE900883B90 /* ContentView.swift in Sources */,
+				1B21629E24BFA8F900ADECB5 /* RootMapView.swift in Sources */,
 				1B2EDA7624BCD8F200FC1480 /* PointOfInterest.swift in Sources */,
 				1B56F78A24BCBBE900883B90 /* ToddlertainmentApp.swift in Sources */,
 				1BEEF22724BD0B37003870B1 /* PointOfInterestDetailView.swift in Sources */,
@@ -328,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B56F78D24BCBBE900883B90 /* ContentView.swift in Sources */,
+				1B21629F24BFA8F900ADECB5 /* RootMapView.swift in Sources */,
 				1B2EDA7724BCD8F200FC1480 /* PointOfInterest.swift in Sources */,
 				1B56F78B24BCBBE900883B90 /* ToddlertainmentApp.swift in Sources */,
 				1BEEF22824BD0B37003870B1 /* PointOfInterestDetailView.swift in Sources */,

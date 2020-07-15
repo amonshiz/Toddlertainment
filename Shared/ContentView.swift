@@ -9,12 +9,7 @@ import SwiftUI
 import MapKit
 
 struct ContentView: View {
-  private class InternalState: ObservableObject {
-    @Published var isPresented = false
-    @Published var selectedPointOfInterest: PointOfInterest?
-  }
-
-  @ObservedObject private var state = InternalState()
+  @ObservedObject private var state = RootMapView.State()
 
   @State var coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 40.742218, longitude: -74.032312), latitudinalMeters: 3500, longitudinalMeters: 500)
 
@@ -22,34 +17,7 @@ struct ContentView: View {
 
   var body: some View {
     NavigationView {
-      Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: nil, annotationItems: pointsOfInterest) { poi in
-        MapAnnotation(coordinate: poi.coordinate) {
-          Image(systemName: "bus")
-            .padding(5)
-            .onTapGesture {
-              state.selectedPointOfInterest = poi
-              state.isPresented.toggle()
-            }
-            .background(
-              RoundedRectangle(cornerRadius: 5)
-                .fill()
-                .foregroundColor(.red))
-        }
-      }
-      .edgesIgnoringSafeArea(.all)
-      .navigationBarItems(
-        leading:
-          Button {
-            state.isPresented.toggle()
-          } label: {
-            Label("", systemImage: "line.horizontal.3")
-              .labelStyle(IconOnlyLabelStyle())
-          }
-          .buttonStyle(BorderlessButtonStyle())
-          .padding(.all, 10)
-          .background(Color.white)
-          .cornerRadius(5.0)
-      )
+      RootMapView(coordinateRegion: $coordinateRegion, pointsOfInterest: pointsOfInterest, state: state)
     }
     .sheet(isPresented: $state.isPresented, onDismiss: {
       state.selectedPointOfInterest = nil
